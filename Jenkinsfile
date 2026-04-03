@@ -26,10 +26,20 @@ stage('Build Maven Project') {
             }
         }
 
-        stage('Tag & Push to ECR') {
-            steps {
-                echo "We will add ECR push code after Maven + Docker build works ✅"
+        
             }
         }
+stage('Tag & Push to ECR') {
+    steps {
+        script {
+            sh '''
+                aws ecr get-login-password --region ap-south-1 | \
+                docker login --username AWS --password-stdin 238851050082.dkr.ecr.ap-south-1.amazonaws.com
+
+                docker tag java-app:latest 238851050082.dkr.ecr.ap-south-1.amazonaws.com/java-app:latest
+                
+                docker push 238851050082.dkr.ecr.ap-south-1.amazonaws.com/java-app:latest
+            '''
+
     }
 }
