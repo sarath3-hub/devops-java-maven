@@ -9,9 +9,14 @@ pipeline {
             }
         }
 
-        stage('Build Maven Project') {
-            steps {
-                sh 'mvn clean package'
+        
+stage('Build Maven Project') {
+    tools {
+        maven 'MAVEN_3_9_6'
+    }
+    steps {
+        sh 'mvn clean package'
+
             }
         }
 
